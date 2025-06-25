@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  border: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* header css */
+/* Container for entire header */
+.header-container {
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Flexbox for header content layout */
+.head-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo + app name */
+.head1 {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo-name h1 {
+  font-family: "Audiowide", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #023eb5;
+  margin: 0;
+}
+
+
+.head2 {
+  display: flex;
+  gap: 30px;
+}
+
+.head2 > div {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.head2 i {
+  margin-right: 6px;
+  color: #ffc220;
+}
+
+.head2 h3 {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #4e4e4e;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+
+.head2 > div:hover h3 {
+  color: #005eff;
+  
+}
+
+
+/*  home css */
+
+.home-content {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  background-color: #023eb5;
+}
+
+.block1 h1 {
+  color: #ffffff;
+  font-size: 5.6rem;
+  padding-top: 30px;
+  margin-top: 80px;
+  margin-left: 100px;
+  height: auto;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 5px #002f6c;
+}
+.block1 h2 {
+  color: #ffffff;
+  font-weight: 540;
+  margin-left: 80px;
+  padding-bottom: 20px;
+  padding-top: 5px;
+  font-family: sans-serif;
+  font-size: 1.9rem;
+}
+.block1 h4{
+  color: #ffffff;
+  padding-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+ width: 700px;
+ margin-left: 120px;
+ font-weight: 400;
+ font-size: 1.2rem;
+}
+.powered-by{
+  display: flex;
+  justify-content: center;
+
+}
+.powered-by h3{
+color: #ffffff;
+font-weight: 200;
+font-size: 0.9rem;
+}
+.powered-by img{
+  width: 30px;
+  height: 30px;
+margin-top: -8px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+.block1 {
+ 
+  width: 100%;
+  text-align: center;
+  height: 500px;
+}
+.scanNow{
+  text-align: center;
+  padding-top: 15px;
+}
+.scanNow button{
+  padding: 13px;
+  width: 100px;
+  border-radius: 20px;
+  border-style: none;
+  outline: none;
+  cursor: pointer;
+
+}
+.scanNow span{
+ font-family: 'Montserrat', sans-serif;
+ font-size: 0.9rem;
+}
+
+.block2 {
+  background-color: #ffffff;
+  width: 100%;
+  text-align: center;
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.block2 h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2rem;
+  color: #4e4e4e;
+  font-weight: 600;
+}
+.part1 img {
+  width: 500px;
+  max-width: 100%;
+  height: 400px;
+}
+
+.part2 {
+  max-width: 600px;
+  text-align: left;
+}
+
+.part2 h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2rem;
+  color: #4e4e4e;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.part2 h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+}
+.part2 p{
+  color: #023eb5;
+ padding-top: 10px;
+ padding-bottom: 10px;
+ 
+}
+.part2 img{
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+margin-bottom: -3px;
+margin-right: 2px;
+  
+}
+.part2 ul  li{
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* footer css */
+.footer-content{
+  background-color: #023eb5;
+}
+.fblock1{
+ 
+  background-color: #002f6c;
+  border-bottom: 1px solid #ffc220;
+}
+.fblock1 h1{
+  color: #ffffff;
+  text-align: center;
+  font-size: 3rem;
+  padding: 20px;
+}
+.fblock1 img{
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: -8px;
+}
+.fblock1-part1{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+.fblock1-part1 h3{
+  color: #ffffff;
+  font-weight: 200;
+  font-size: 0.9rem;
+
+}
+.fblock2{
+  background-color: #002f6c;
+  padding: 20px;
+}
+.fblock2 p{
+  color: #ffffff;
+  text-align: center;
+}
