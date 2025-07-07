@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scan Success • Deal Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+  <style>
+    :root {
+      --walmart-blue: #0071ce;
+      --walmart-yellow: #ffc220;
+      --light-bg: #f7f8fc;
+      --text-dark: #2c3e50;
+      --green: #27ae60;
+    }
+
+    @keyframes pop-in { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes draw-tick { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+    @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes confetti-fall { 0% { transform: translateY(0%) rotate(0deg); opacity: 1; } 100% { transform: translateY(120vh) rotate(720deg); opacity: 0; } }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .results-view {
+      position: relative;
+      text-align: center;
+      margin-top: -20px;
+    }
+
+    .tick-mark-container {
+      margin: 0 auto;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: pop-in 0.5s ease-out forwards;
+    }
+
+    .tick-mark-path {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: draw-tick 0.8s ease-out 0.3s forwards;
+    }
+
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 20px;
+      animation: confetti-fall 4s linear;
+    }
+
+    .deal-info-container {
+      animation: fade-in-up 0.8s ease-out 1s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .deal-info-container h2 {
+      font-size: 2.5em;
+      color: var(--green);
+      margin: 20px 0;
+    }
+
+    .deal-card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      border-top: 8px solid var(--walmart-yellow);
+      width: 400px;
+      margin: auto;
+    }
+
+    .deal-card h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 2.8em;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .price span {
+      font-size: 0.5em;
+      color: #aaa;
+      margin-left: 10px;
+      text-decoration: line-through;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 20px;
+      gap: 15px;
+    }
+
+    .info-item {
+      background: var(--light-bg);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .info-item .value {
+      font-size: 1.5em;
+      color: var(--walmart-blue);
+      font-weight: bold;
+    }
+
+    .info-item .label {
+      font-size: 0.8em;
+      color: #777;
+    }
+
+    @media(max-width: 500px) {
+      .deal-card {
+        width: 90%;
+      }
+
+      .deal-info-container h2 {
+        font-size: 2em;
+      }
+
+      .price {
+        font-size: 2.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="results-view">
+  <div class="confetti-container" id="confetti-container"></div>
+
+  <!-- Tick Mark Animation -->
+  <svg class="tick-mark-container" width="140" height="140" viewBox="0 0 52 52">
+    <circle cx="26" cy="26" r="25" fill="none" stroke="#e7f1ff" stroke-width="4"/>
+    <path class="tick-mark-path" fill="none" stroke="var(--walmart-yellow)" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10"
+          d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+  </svg>
+
+  <!-- Deal Info -->
+  <div class="deal-info-container" id="deal-info">
+    <h2>Hurry! Grab This Deal!</h2>
+    <div class="deal-card">
+      <h3 id="product-name">Product Name</h3>
+      <div class="price" id="product-price">₹228 <span id="product-original">₹250</span></div>
+      <div class="info-grid">
+        <div class="info-item"><div class="value" id="stock">4</div><div class="label">Units Left</div></div>
+        <div class="info-item"><div class="value" id="expire">2</div><div class="label">Days to Expire</div></div>
+        <div class="info-item"><div class="value" id="views">12</div><div class="label">Views Today</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Success sound
+  const synth = new Tone.PolySynth().toDestination();
+  const now = Tone.now();
+  synth.triggerAttackRelease("C4", "8n", now);
+  synth.triggerAttackRelease("G4", "8n", now + 0.2);
+  synth.triggerAttackRelease("C5", "8n", now + 0.4);
+
+  // Confetti
+  const confettiContainer = document.getElementById('confetti-container');
+  const colors = ['#0071ce', '#ffc220', '#ffffff'];
+  for (let i = 0; i < 150; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.top = Math.random() * -20 + 'vh';
+    c.style.animationDelay = Math.random() * 2 + 's';
+    c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    c.style.transform = `rotate(${Math.random() * 360}deg)`;
+    confettiContainer.appendChild(c);
+  }
+
+  // Fill data from URL
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('name')) document.getElementById('product-name').innerText = params.get('name');
+  if (params.has('price')) document.getElementById('product-price').innerHTML = `₹${params.get('price')} <span>₹${params.get('original') || ''}</span>`;
+  if (params.has('stock')) document.getElementById('stock').innerText = params.get('stock');
+  if (params.has('expire')) document.getElementById('expire').innerText = params.get('expire');
+  if (params.has('views')) document.getElementById('views').innerText = params.get('views');
+</script>
+
+</body>
+</html>

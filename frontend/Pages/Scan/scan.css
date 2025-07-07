@@ -1,0 +1,75 @@
+body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7f8fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #0071ce;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    .barcode-input-wrapper {
+      position: relative;
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 48px 14px 16px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background-color: #eef3fa;
+      box-sizing: border-box;
+    }
+    .scan-icon {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #0071ce;
+      font-size: 1.3rem;
+    }
+    .action-btn {
+      margin-top: 20px;
+      background-color: #0071ce;
+      color: white;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    #reader {
+      margin-top: 20px;
+    }
+    .upload-label {
+      display: none;
+      margin-top: 15px;
+      background: #ffc220;
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    input[type="file"] {
+      display: none;
+    }
