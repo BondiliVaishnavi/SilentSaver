@@ -45,7 +45,6 @@
   margin: 0;
 }
 
-
 .head2 {
   display: flex;
   gap: 30px;
@@ -71,23 +70,22 @@
   transition: color 0.3s ease;
 }
 
-
 .head2 > div:hover h3 {
   color: #005eff;
-  
 }
-
 
 /*  home css */
 
 .home-content {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #023eb5;
 }
 
+.block1 {
+  background-color: #023eb5;
+}
 .block1 h1 {
   color: #ffffff;
   font-size: 5.6rem;
@@ -107,55 +105,52 @@
   font-family: sans-serif;
   font-size: 1.9rem;
 }
-.block1 h4{
+.block1 h4 {
   color: #ffffff;
   padding-bottom: 20px;
-    font-family: 'Montserrat', sans-serif;
- width: 700px;
- margin-left: 120px;
- font-weight: 400;
- font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+  width: 700px;
+  margin-left: 120px;
+  font-weight: 400;
+  font-size: 1.2rem;
 }
-.powered-by{
+.powered-by {
   display: flex;
   justify-content: center;
-
 }
-.powered-by h3{
-color: #ffffff;
-font-weight: 200;
-font-size: 0.9rem;
+.powered-by h3 {
+  color: #ffffff;
+  font-weight: 200;
+  font-size: 0.9rem;
 }
-.powered-by img{
+.powered-by img {
   width: 30px;
   height: 30px;
-margin-top: -8px;
+  margin-top: -8px;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 20px;
 }
 .block1 {
- 
   width: 100%;
   text-align: center;
   height: 500px;
 }
-.scanNow{
+.scanNow {
   text-align: center;
   padding-top: 15px;
 }
-.scanNow button{
+.scanNow button {
   padding: 13px;
   width: 100px;
   border-radius: 20px;
   border-style: none;
   outline: none;
   cursor: pointer;
-
 }
-.scanNow span{
- font-family: 'Montserrat', sans-serif;
- font-size: 0.9rem;
+.scanNow span {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
 }
 
 .block2 {
@@ -169,7 +164,7 @@ margin-top: -8px;
 }
 
 .block2 h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 2.2rem;
   color: #4e4e4e;
   font-weight: 600;
@@ -186,7 +181,7 @@ margin-top: -8px;
 }
 
 .part2 h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 2.2rem;
   color: #4e4e4e;
   font-weight: 700;
@@ -194,70 +189,118 @@ margin-top: -8px;
 }
 
 .part2 h3 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.6;
   color: #333;
 }
-.part2 p{
+.part2 p {
   color: #023eb5;
- padding-top: 10px;
- padding-bottom: 10px;
- 
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
-.part2 img{
+.part2 img {
   width: 20px;
   height: 20px;
   margin-left: 5px;
-margin-bottom: -3px;
-margin-right: 2px;
-  
+  margin-bottom: -3px;
+  margin-right: 2px;
 }
-.part2 ul  li{
+.part2 ul li {
   margin-top: 5px;
   font-size: 14px;
 }
 
 /* footer css */
-.footer-content{
+.footer-content {
   background-color: #023eb5;
 }
-.fblock1{
- 
+.fblock1 {
   background-color: #002f6c;
   border-bottom: 1px solid #ffc220;
 }
-.fblock1 h1{
+.fblock1 h1 {
   color: #ffffff;
   text-align: center;
   font-size: 3rem;
   padding: 20px;
 }
-.fblock1 img{
+.fblock1 img {
   width: 30px;
   height: 30px;
   margin-left: 15px;
   margin-right: 15px;
   margin-top: -8px;
 }
-.fblock1-part1{
+.fblock1-part1 {
   display: flex;
   text-align: center;
   justify-content: center;
   padding-bottom: 30px;
 }
-.fblock1-part1 h3{
+.fblock1-part1 h3 {
   color: #ffffff;
   font-weight: 200;
   font-size: 0.9rem;
-
 }
-.fblock2{
+.fblock2 {
   background-color: #002f6c;
   padding: 20px;
 }
-.fblock2 p{
+.fblock2 p {
   color: #ffffff;
   text-align: center;
+}
+
+.block3 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.block3 h1 {
+  color: #4e4e4e;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.block3 p {
+  color: #4e4e4e;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.win-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  color: #333;
+}
+
+.win-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  line-height: 1.7rem;
+  text-align: center;
+}
+
+
+.i-and-h {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.smile{
+  color: #ffc220;
+}
+.graph{
+   color:#023eb5;
+}
+.earth{
+  color: green;
 }
