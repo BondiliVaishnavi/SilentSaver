@@ -1,5 +1,5 @@
 :root {
-  --walmart-blue: #0071ce;
+  --walmart-blue: #023eb5;
   --walmart-yellow: #ffc220;
   --light-bg: #f7f8fc;
   --text-dark: #2c3e50;
@@ -8,8 +8,8 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: var(--light-bg);
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--walmart-blue);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +26,7 @@ body {
   max-width: 480px;
   text-align: center;
   position: relative;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -46,40 +47,47 @@ h2 {
 }
 
 .barcode-input-wrapper {
-  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 3px solid var(--walmart-blue);
+  border-radius: 999px;
+  padding: 10px 16px;
   margin: 20px 0;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 14px 48px 14px 16px;
-  font-size: 1rem;
-  border: 2px solid #e1e5eb;
-  border-radius: 12px;
-  background-color: #f8f9fa;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-input[type="text"]:focus {
-  border-color: var(--walmart-blue);
+.barcode-input-wrapper input[type="text"] {
+  flex: 1;
+  border: none;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 113, 206, 0.2);
+  background: transparent;
+  font-size: 1rem;
+  color: var(--text-dark);
+  font-family: 'Poppins', sans-serif;
 }
 
-.scan-icon {
-  position: absolute;
-  top: 50%;
-  right: 14px;
-  transform: translateY(-50%);
+.barcode-input-wrapper .scan-icon {
+  background-color: #002d72;
+  border-radius: 50%;
+  color: white;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
   cursor: pointer;
-  color: var(--walmart-blue);
-  font-size: 1.3rem;
-  transition: transform 0.2s ease;
+  transition: background-color 0.3s ease;
 }
+
+.barcode-input-wrapper .scan-icon:hover {
+  background-color: #0046aa;
+}
+
 
 .scan-icon:hover {
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
+  background-color: #0046aa;
 }
 
 .action-btn {
@@ -117,8 +125,6 @@ input[type="text"]:focus {
 .scanner-active .input-section {
   display: none;
 }
-
-/* Removed the scanner-overlay class completely */
 
 .close-btn {
   display: none;
@@ -159,13 +165,19 @@ input[type="text"]:focus {
 }
 
 .upload-label:hover {
-  background: #e6ae1a;
+  background: var(--walmart-yellow);
 }
 
 input[type="file"] {
   display: none;
 }
 
+input[type="text"]:focus {
+  color:var(--walmart-blue) ;
+}
+input::placeholder{
+  color: var(--walmart-blue);
+}
 .demo-barcodes {
   margin: 25px 0 15px;
   color: #666;
@@ -242,14 +254,36 @@ input[type="file"] {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 480px) {
+
+@media (max-width: 600px) {
   .container {
     padding: 20px;
-    border-radius: 0;
-    min-height: 100vh;
+    border-radius: 12px;
   }
-  
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .action-btn {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .demo-codes {
+    gap: 8px;
+  }
+
+  .demo-codes span {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+
   #reader {
-    min-height: 300px;
+    min-height: 250px;
   }
 }

@@ -31,7 +31,7 @@
 
           
 
-          <div class="user">Logged in as: <strong>Walmart Manager</strong></div>
+          <div class="user">Logged in as: <strong id="logged-user">Loading..</strong></div>
         </div>
       </div>
     </div>
@@ -113,5 +113,14 @@
 
 
   </body>
-  
+  <script>
+  // Replace placeholder with logged-in user's name from localStorage
+  const userName = localStorage.getItem("userName");
+  if (userName) {
+    document.getElementById("logged-user").textContent = userName;
+  } else {
+    document.getElementById("logged-user").textContent = "Guest";
+  }
+</script>
+
 </html>
