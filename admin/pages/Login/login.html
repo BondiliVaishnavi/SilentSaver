@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -140,3 +141,146 @@
   </script>
   </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <section class="login-section">
+      <div class="login-container">
+        <div class="login-content">
+          <div class="login-logo">
+            <div class="login-pic">
+              <img src="../../../frontend/images/spark-icon.svg" alt="" />
+            </div>
+            <div class="logo-name">
+              <h1>SilentSaver</h1>
+            </div>
+          </div>
+          <h3> Admin Login</h3>
+          <form id="login-form" >
+            
+
+            <label htmlFor="name">Email</label>
+            <input
+              placeholder="Email"
+              type="email"
+              name="email"
+              id="email"
+              required
+            />
+
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+
+            <button type="submit" class="submit-btn">Login</button>
+
+           <div class="already-registered">
+            <span>Not Registered ?</span>
+            <a style="text-decoration: none;" href="../Signup/signup.html">
+                <span> Signup </sp>
+            </a>
+          
+           </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <div id="toast" class="toast hidden">
+      <i id="toast-icon" class="toast-icon fas fa-check-circle"></i>
+      <span id="toast-message" class="toast-message">Message</span>
+      <span class="toast-close" onclick="hideToast()">
+        <i class="fas fa-times"></i>
+      </span>
+      <div id="toast-progress" class="toast-progress"></div>
+    </div>
+     <script>
+    const form = document.getElementById("login-form");
+
+    function showToast(type, message) {
+      const toast = document.getElementById("toast");
+      const icon = document.getElementById("toast-icon");
+      const msg = document.getElementById("toast-message");
+      const progress = document.getElementById("toast-progress");
+
+      toast.className = "toast";
+      toast.classList.add(type);
+
+      msg.textContent = message;
+
+      if (type === "success") {
+        icon.className = "toast-icon fas fa-check-circle";
+        progress.style.backgroundColor = "#2ecc71";
+      } else {
+        icon.className = "toast-icon fas fa-times-circle";
+        progress.style.backgroundColor = "#e74c3c";
+      }
+
+      progress.style.animation = "none";
+      void progress.offsetWidth;
+      progress.style.animation = "progress 4s linear forwards";
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 4000);
+    }
+
+    function hideToast() {
+      document.getElementById("toast").classList.add("hidden");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      try {
+        const res = await fetch("http://localhost:5000/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          showToast("success", data.message || "Login successful!");
+
+          localStorage.setItem("token", data.jwtToken);
+          localStorage.setItem("userEmail", data.email);
+          localStorage.setItem("userName", data.name);
+
+          setTimeout(() => {
+            window.location.href =  "../admin/admin.html";
+          }, 2000);
+        } else {
+          showToast("error", data.message || "Login failed");
+        }
+      } catch (error) {
+        showToast("error", "Network Error: " + error.message);
+      }
+    });
+  </script>
+  </body>
+</html>
+
