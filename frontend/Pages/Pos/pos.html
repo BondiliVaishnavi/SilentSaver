@@ -5,21 +5,210 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Walmart | POS</title>
     <link rel="stylesheet" href="pos.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
   </head>
   <body>
-
-
-
-    <header>hi</header>
+    <header>
+      <div class="header-container">
+        <div class="head-content">
+          <div class="head">
+            <div class="header-logo">
+              <img src="../../../frontend/images/spark-icon.svg" alt="/" />
+              <div class="logo">SilentSaver POS</div>
+            </div>
+            <p>Powered by Walmart Sparkathon 2025</p>
+          </div>
+        </div>
+      </div>
+    </header>
     <div class="pos-image">
       <img src="../../images/pos1.png" class="top-image image1" />
-      
+      <div id="chat" class="chat-bubble"></div>
     </div>
 
     <section class="pos-section">
       <div class="pos-container">
-        <div class="pos-content"></div>
+        <div class="pos-content">
+          <h2>POS Checkout</h2>
+          <form id="pos-form">
+            <div class="form-box">
+              <label>Product Name</label>
+              <input
+                type="text"
+                id="item-name"
+                placeholder="e.g., Tropicana Juice"
+              />
+            </div>
+
+            <div class="form-box">
+              <label>Amount Saved (₹)</label>
+              <input
+                type="number"
+                id="amount-saved"
+                placeholder="e.g., 45"
+                oninput="calculateDiscount()"
+                required
+              />
+            </div>
+
+            <div class="form-box">
+              <label>Clearance Price (After 30% Off)</label>
+              <input type="text" id="final-price" readonly />
+            </div>
+
+            <button type="button" onclick="logSale()">Log Sale</button>
+          </form>
+        </div>
+      </div>
+      <div class="name-entry" id="name-entry">
+        <input type="text" id="customer-name" placeholder="Enter your name" />
+        <button onclick="submitName()">Submit Name</button>
       </div>
     </section>
+
+    <div id="toast" class="toast hidden">
+      <i id="toast-icon" class="toast-icon fas fa-check-circle"></i>
+      <span id="toast-message" class="toast-message">Message</span>
+      <span class="toast-close" onclick="hideToast()">
+        <i class="fas fa-times"></i>
+      </span>
+      <div id="toast-progress" class="toast-progress"></div>
+    </div>
+
+    <div id="toast2" class="toast hidden">
+      <i id="toast2-icon" class="toast-icon fas fa-check-circle"></i>
+      <span id="toast2-message" class="toast-message">Message</span>
+      <span class="toast-close" onclick="hideToast2()">
+        <i class="fas fa-times"></i>
+      </span>
+      <div id="toast2-progress" class="toast-progress"></div>
+    </div>
   </body>
+
+  <script>
+    function calculateDiscount() {
+      const original = parseFloat(
+        document.getElementById("amount-saved").value
+      );
+      const finalField = document.getElementById("final-price");
+
+      if (!isNaN(original)) {
+        const discounted = (original * 0.7).toFixed(2);
+        finalField.value = `₹${discounted}`;
+      } else {
+        finalField.value = "";
+      }
+    }
+
+    function logSale() {
+      const item = document.getElementById("item-name").value;
+      const original = parseFloat(
+        document.getElementById("amount-saved").value
+      );
+
+      if (!item || isNaN(original)) {
+        showToast("error", "Please fill all fields");
+
+        return;
+      }
+
+      const saving = (original * 0.3).toFixed(2);
+
+      document.getElementById("pos-form").style.display = "none";
+
+      const chat = document.getElementById("chat");
+      chat.innerHTML = ` Congratulations sir! You saved ₹${saving}.<br>Can you please tell your name?`;
+      chat.style.display = "block";
+
+      document.getElementById("name-entry").style.display = "block";
+    }
+
+    function submitName() {
+      const name = document.getElementById("customer-name").value.trim();
+      if (!name) {
+        showToast("error", "Please enter your name.");
+        return;
+      }
+
+      showToast("success", ` Thank you ${name}, you're now a Waste Warrior!`);
+      showToast2(
+        "success",
+        " Name updated in In-Store Display. Inventory successfully refreshed."
+      );
+
+      setTimeout(() => {
+        location.reload();
+      }, 4000);
+    }
+
+    function showToast(type, message) {
+      const toast = document.getElementById("toast");
+      const icon = document.getElementById("toast-icon");
+      const msg = document.getElementById("toast-message");
+      const progress = document.getElementById("toast-progress");
+
+      toast.className = "toast";
+      toast.classList.add(type);
+
+      msg.textContent = message;
+
+      if (type === "success") {
+        icon.className = "toast-icon fas fa-check-circle";
+        progress.style.backgroundColor = "#2ecc71";
+      } else {
+        icon.className = "toast-icon fas fa-times-circle";
+        progress.style.backgroundColor = "#e74c3c";
+      }
+
+      progress.style.animation = "none";
+      void progress.offsetWidth;
+      progress.style.animation = "progress 4s linear forwards";
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 4000);
+    }
+
+    function hideToast() {
+      document.getElementById("toast").classList.add("hidden");
+    }
+
+    function showToast2(type, message) {
+      const toast = document.getElementById("toast2");
+      const icon = document.getElementById("toast2-icon");
+      const msg = document.getElementById("toast2-message");
+      const progress = document.getElementById("toast2-progress");
+
+      toast.className = "toast";
+      toast.classList.add(type);
+      msg.textContent = message;
+
+      if (type === "success") {
+        icon.className = "toast-icon fas fa-bolt";
+        progress.style.backgroundColor = "#00b894";
+      } else {
+        icon.className = "toast-icon fas fa-times-circle";
+        progress.style.backgroundColor = "#e74c3c";
+      }
+
+      progress.style.animation = "none";
+      void progress.offsetWidth;
+      progress.style.animation = "progress 4s linear forwards";
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 4000);
+    }
+
+    function hideToast2() {
+      document.getElementById("toast2").classList.add("hidden");
+    }
+  </script>
 </html>
