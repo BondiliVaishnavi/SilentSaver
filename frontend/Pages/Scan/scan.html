@@ -6,76 +6,161 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/html5-qrcode"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="scan.css"/>
-  
+  <link rel="stylesheet" href="scan.css">
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="main-container">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Walmart_Spark.svg/2048px-Walmart_Spark.svg.png" class="logo" alt="Walmart Logo" />
     <h2>Scan & Save with Walmart</h2>
-
-    <div class="barcode-input-wrapper" id="input-wrapper">
-      <input type="text" id="barcode-input" placeholder="Enter or scan barcode" onkeydown="handleEnter(event)">
-      <i class="fas fa-camera scan-icon" onclick="openScanner()"></i>
+    <p class="subtitle">Find hidden clearance deals and become a Waste Warrior!</p>
+    
+    <div class="input-section">
+      <div class="barcode-input-wrapper">
+        <input type="text" id="barcode-input" placeholder="Enter barcode manually" onkeydown="handleEnter(event)">
+        <i class="fas fa-camera scan-icon" onclick="openScanner()"></i>
+      </div>
+      <button class="action-btn" onclick="submitCode()">
+        <i class="fas fa-search-dollar"></i> Check for Deals
+      </button>
     </div>
-
-    <button class="action-btn" id="submit-btn" onclick="submitCode()">Submit</button>
-
+    
     <div id="reader"></div>
-
-    <label class="upload-label" id="upload-label" for="upload-image"> Upload Barcode Image</label>
+    <div class="scanner-overlay"></div>
+    
+    <button class="close-btn" onclick="closeScanner()">
+      <i class="fas fa-times"></i> Close Scanner
+    </button>
+    
+    <label class="upload-label" for="upload-image">
+      <i class="fas fa-image"></i> Upload Barcode Image
+    </label>
     <input type="file" id="upload-image" accept="image/*" onchange="scanFromFile(this)" />
+    
+    <div class="demo-barcodes">
+      <p>Try these demo barcodes:</p>
+      <div class="demo-codes">
+        <span onclick="useDemoCode('MILK123')">MILK123</span>
+        <span onclick="useDemoCode('JUICE456')">JUICE456</span>
+        <span onclick="useDemoCode('EGG789')">EGG789</span>
+      </div>
+    </div>
+    
+    <div class="loading-spinner" id="loading-spinner">
+      <div class="spinner"></div>
+      <p>Scanning product...</p>
+    </div>
   </div>
 
   <script>
     const validCodes = {
-      "MILK123": { name: "Amul Milk", oldPrice: 50, newPrice: 40, units: 5, days: 2, views: 10 },
-      "JUICE456": { name: "Real Juice", oldPrice: 90, newPrice: 75, units: 3, days: 4, views: 8 },
-      "EGG789": { name: "Eggs 6pc", oldPrice: 65, newPrice: 55, units: 8, days: 1, views: 11 }
+      "MILK123": { 
+        name: "Amul Milk 1L", 
+        oldPrice: 50, 
+        newPrice: 30, 
+        discount: "40% OFF",
+        units: 5, 
+        days: 2, 
+        views: 10,
+        location: "Aisle 7, Clearance Rack"
+      },
+      "JUICE456": { 
+        name: "Real Juice 1L", 
+        oldPrice: 90, 
+        newPrice: 54, 
+        discount: "40% OFF",
+        units: 3, 
+        days: 4, 
+        views: 8,
+        location: "Aisle 3, Clearance Rack"
+      },
+      "EGG789": { 
+        name: "Eggs 6pc", 
+        oldPrice: 65, 
+        newPrice: 39, 
+        discount: "40% OFF",
+        units: 8, 
+        days: 1, 
+        views: 11,
+        location: "Aisle 2, Clearance Rack"
+      }
     };
 
     let html5Qr;
 
     function openScanner() {
-      // Hide input and submit
-      document.getElementById("input-wrapper").style.display = "none";
-      document.getElementById("submit-btn").style.display = "none";
-
-      // Show upload
-      document.getElementById("upload-label").style.display = "inline-block";
-
+      // Switch to scanner mode
+      document.getElementById("main-container").classList.add("scanner-active");
+      
       // Start scanner
       const reader = document.getElementById("reader");
       reader.innerHTML = "";
       html5Qr = new Html5Qrcode("reader");
 
+      showLoading(true);
+      
       html5Qr.start(
         { facingMode: "environment" },
-        { fps: 10, qrbox: 250 },
+        { fps: 10, qrbox: {width: 250, height: 250} },
         (decodedText) => {
+          showLoading(false);
           html5Qr.stop().then(() => {
             handleScan(decodedText.trim());
-          });
+          }).catch(err => console.log("Scanner stop error:", err));
         },
-        (error) => console.log(error)
-      );
+        (error) => {
+          showLoading(false);
+          if (error.includes("NotAllowedError")) {
+            alert("Camera access denied. Please allow camera permissions.");
+            closeScanner();
+          }
+          console.log(error);
+        }
+      ).catch(err => {
+        showLoading(false);
+        alert("Could not access camera. Please check permissions.");
+        console.error("Camera error:", err);
+        closeScanner();
+      });
+    }
+
+    function closeScanner() {
+      if (html5Qr) {
+        html5Qr.stop().then(() => {
+          resetUI();
+        }).catch(err => console.log("Scanner stop error:", err));
+      } else {
+        resetUI();
+      }
+    }
+
+    function resetUI() {
+      document.getElementById("main-container").classList.remove("scanner-active");
+      document.getElementById("reader").innerHTML = "";
+      showLoading(false);
     }
 
     function scanFromFile(input) {
       if (!input.files || input.files.length === 0) return;
 
+      showLoading(true);
       const file = input.files[0];
       const scanner = new Html5Qrcode("reader");
 
       scanner.scanFile(file, true)
         .then(decodedText => {
+          showLoading(false);
           scanner.clear();
           handleScan(decodedText.trim());
         })
         .catch(err => {
-          alert("⚠️ Could not scan the image.");
+          showLoading(false);
+          alert("⚠️ Could not scan the image. Please try a clearer image.");
           console.error("Scan failed:", err);
         });
+    }
+
+    function showLoading(show) {
+      document.getElementById("loading-spinner").style.display = show ? "flex" : "none";
     }
 
     function handleEnter(e) {
@@ -84,18 +169,42 @@
 
     function submitCode() {
       const code = document.getElementById("barcode-input").value.trim();
+      if (!code) {
+        alert("Please enter or scan a barcode");
+        return;
+      }
+      handleScan(code);
+    }
+
+    function useDemoCode(code) {
+      document.getElementById("barcode-input").value = code;
       handleScan(code);
     }
 
     function handleScan(code) {
-      const result = validCodes[code];
-      if (result) {
-        localStorage.setItem("deal", JSON.stringify(result));
-        window.location.href = "../Reward/reward.html";
-
-      } else {
-        alert("❌ No better deal found.");
-      }
+      showLoading(true);
+      
+      // Simulate processing delay
+      setTimeout(() => {
+        const result = validCodes[code];
+        if (result) {
+          // Redirect to reward page with parameters
+          const params = new URLSearchParams();
+          params.append("name", result.name);
+          params.append("price", result.newPrice);
+          params.append("original", result.oldPrice);
+          params.append("discount", result.discount);
+          params.append("stock", result.units);
+          params.append("expire", result.days);
+          params.append("views", result.views);
+          params.append("location", result.location);
+          
+          window.location.href = `../Reward/reward.html?${params.toString()}`;
+        } else {
+          showLoading(false);
+          alert("❌ No better deal found for this product.\n\nKeep checking - deals update frequently!");
+        }
+      }, 800);
     }
   </script>
 </body>
