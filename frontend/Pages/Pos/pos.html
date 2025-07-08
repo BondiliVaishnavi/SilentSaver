@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Walmart | POS</title>
+    <link rel="icon" href="../../images/spark-icon.svg" />
     <link rel="stylesheet" href="pos.css" />
     <link
       rel="stylesheet"
@@ -128,20 +129,44 @@
 
     function submitName() {
       const name = document.getElementById("customer-name").value.trim();
+      const item = document.getElementById("item-name").value;
+      const original = parseFloat(
+        document.getElementById("amount-saved").value
+      );
+      const savedAmount = (original * 0.3).toFixed(2);
+      const finalPrice = (original * 0.3).toFixed(2);
       if (!name) {
         showToast("error", "Please enter your name.");
         return;
       }
+      const sale = {
+        name,
+        product: item,
+        originalPrice: original,
+        savedAmount,
+        finalPrice,
+      };
 
-      showToast("success", ` Thank you ${name}, you're now a Waste Warrior!`);
-      showToast2(
-        "success",
-        " Name updated in In-Store Display. Inventory successfully refreshed."
-      );
-
-      setTimeout(() => {
-        location.reload();
-      }, 4000);
+      fetch("http://localhost:5000/api/sales", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(sale),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          showToast(
+            "success",
+            ` Thank you ${name}, you're now a Waste Warrior!`
+          );
+          showToast2(
+            "success",
+            " Name updated in In-Store Display. Inventory successfully refreshed."
+          );
+          setTimeout(() => location.reload(), 4000);
+        })
+        .catch((err) => {
+          showToast("error", "Something went wrong. Try again.");
+        });
     }
 
     function showToast(type, message) {
