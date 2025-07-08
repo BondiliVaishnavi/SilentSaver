@@ -23,22 +23,22 @@
             </div>
           </div>
           <h3> Admin Signup</h3>
-          <form onsubmit="">
+          <form id="signup-form"onsubmit="">
             <label htmlFor="name">Name</label>
             <input
               placeholder="name"
               type="text"
               name="text"
-              id="text"
+              id="name"
               required
             />
 
-            <label htmlFor="name">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               placeholder="Email"
               type="email"
-              name="Email"
-              id="Email"
+              name="email"
+              id="email"
               required
             />
 
@@ -51,7 +51,7 @@
               required
             />
 
-            <button type="submit" className="submit-btn">Signup</button>
+            <button type="submit" class="submit-btn">Signup</button>
 
            <div class="already-registered">
             <span>Already Registered ?</span>
@@ -64,5 +64,89 @@
         </div>
       </div>
     </section>
+   <div id="toast" class="toast hidden">
+  <i id="toast-icon" class="toast-icon fas fa-check-circle"></i>
+  <span id="toast-message" class="toast-message">Message</span>
+  <span class="toast-close" onclick="hideToast()"><i class="fas fa-times"></i></span>
+  <div id="toast-progress" class="toast-progress"></div>
+</div>
+
+
+
+<script>
+  const form = document.getElementById("signup-form");
+
+  function showToast(type, message) {
+    const toast = document.getElementById("toast");
+    const icon = document.getElementById("toast-icon");
+    const msg = document.getElementById("toast-message");
+    const progress = document.getElementById("toast-progress");
+
+    // Reset classes
+    toast.className = "toast";
+    toast.classList.add(type); // success or error
+
+    // Set message
+    msg.textContent = message;
+
+    // Set icon and color
+    if (type === "success") {
+      icon.className = "toast-icon fas fa-check-circle";
+      progress.style.backgroundColor = "#2ecc71";
+    } else {
+      icon.className = "toast-icon fas fa-times-circle";
+      progress.style.backgroundColor = "#e74c3c";
+    }
+
+    // Restart animation
+    progress.style.animation = "none";
+    void progress.offsetWidth; // force reflow
+    progress.style.animation = "progress 4s linear forwards";
+
+    toast.classList.remove("hidden");
+
+    setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 4000);
+  }
+
+  function hideToast() {
+    document.getElementById("toast").classList.add("hidden");
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    try {
+      const res = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        showToast("success", data.message || "Signup successful!");
+        form.reset();
+        setTimeout(() => {
+          window.location.href = "../Login/login.html";
+        }, 2000);
+      } else {
+        showToast("error", data.message || "Signup failed");
+      }
+    } catch (error) {
+      showToast("error", "Network Error: " + error.message);
+    }
+  });
+</script>
+
+
   </body>
 </html>
