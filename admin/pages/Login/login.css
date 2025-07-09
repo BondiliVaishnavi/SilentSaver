@@ -2,76 +2,86 @@
 
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
+
 body {
   background-color: #f7f7f7;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", Arial, sans-serif;
+  line-height: 1.6;
 }
+
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
+
 .login-content {
   background-color: #fff;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 25px;
-  padding-top: 30px;
+  padding: 2.5rem 1.875rem;
   width: 100%;
-  max-width: 400px;
+  max-width: 26rem;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   text-align: center;
-  height: 570px;
 }
+
+.login-logo {
+  margin-bottom: 1.25rem;
+}
+
+.login-logo img {
+  width: 3.125rem;
+  height: 3.125rem;
+  margin-bottom: 1.125rem;
+}
+
 .logo-name {
   font-family: "Audiowide", sans-serif;
   font-weight: 400;
   font-size: 1.5rem;
   color: #023eb5;
-  margin: 0;
-}
-
-.login-logo{
-  
-margin-bottom: 20px;
-}
-.login-logo img {
-  width: 50px;
-  height: 50px;
-margin-bottom: 23px;
+  margin: 0.5rem 0 1.5rem;
 }
 
 .login-content h1 {
-  font-size: 23px;
-margin-top: -20px;
+  font-size: 1.65rem;
+  margin: 0.5rem 0;
 }
-.login-content h3{
-    font-size: 20px;
-    padding: 8px;
+
+.login-content h3 {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
+
 form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.25rem;
+  margin-top: 1rem;
 }
+
 form label {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #555;
   text-align: left;
+  display: block;
+  margin-bottom: 0.25rem;
 }
+
 form input {
-  padding: 12px 16px;
-  font-size: 16px;
+  padding: 0.85rem 1.25rem;
+  font-size: 1rem;
   border-radius: 25px;
   border: 1.5px solid #ccc;
   outline: none;
   transition: border-color 0.3s ease;
+  width: 100%;
 }
 
 form input:focus {
@@ -79,53 +89,54 @@ form input:focus {
 }
 
 form button {
-  padding: 12px 20px;
+  padding: 0.85rem;
   border: none;
   background-color: #ffc220;
   color: white;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1rem;
   border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
 }
 
 .primary-btn:hover {
   background-color: #222;
 }
-.already-registered{
-  
+
+.already-registered {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  text-align: center;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
 }
+
 .already-registered a {
   text-decoration: none;
 }
-.already-registered a p{
- color: #ffc220;text-decoration: none;
 
+.already-registered a p {
+  color: #ffc220;
 }
 
+/* Toast Styles */
 .toast {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 1.25rem;
+  right: 1.25rem;
   background: #fff;
-  border-left: 6px solid green;
+  border-left: 0.375rem solid transparent;
   color: #333;
-  padding: 16px 20px;
+  padding: 1rem 1.25rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   z-index: 9999;
-  width: fit-content;
-  min-width: 250px;
-  max-width: 350px;
-  font-family: sans-serif;
+  max-width: 22rem;
   animation: slideIn 0.3s ease forwards;
 }
 
@@ -134,39 +145,53 @@ form button {
 }
 
 .toast-icon {
-  font-size: 20px;
+  font-size: 1.25rem;
+  flex-shrink: 0;
 }
 
 .toast-message {
   flex: 1;
+  text-align: left;
 }
 
 .toast-close {
   cursor: pointer;
   font-weight: bold;
-  padding-left: 10px;
+  padding-left: 0.625rem;
+  flex-shrink: 0;
 }
 
 .toast-progress {
-  height: 4px;
+  height: 0.25rem;
   position: absolute;
   bottom: 0;
   left: 0;
   animation: progress 4s linear forwards;
-  background-color: currentColor; /* will inherit from type */
 }
 
 .toast.success {
-  border-left-color: #2ecc71; /* green */
-  color: #2ecc71;
+  border-left-color: #2ecc71;
 }
 
 .toast.error {
-  border-left-color: #e74c3c; /* red */
+  border-left-color: #e74c3c;
+}
+
+.toast.success .toast-icon {
+  color: #2ecc71;
+}
+
+.toast.error .toast-icon {
   color: #e74c3c;
 }
 
+.toast.success .toast-progress {
+  background-color: #2ecc71;
+}
 
+.toast.error .toast-progress {
+  background-color: #e74c3c;
+}
 
 @keyframes progress {
   0% { width: 0; }
@@ -183,16 +208,82 @@ form button {
     transform: translateX(0);
   }
 }
-.toast-icon {
-  font-size: 20px;
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .login-content {
+    padding: 2rem 1.5rem;
+    max-width: 95%;
+  }
+
+  .login-logo img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .logo-name {
+    font-size: 1.3rem;
+  }
+
+  .login-content h1 {
+    font-size: 1.4rem;
+  }
+
+  .login-content h3 {
+    font-size: 1.1rem;
+  }
+
+  form {
+    gap: 1rem;
+  }
 }
 
-.toast.success .toast-icon {
-  color: #2ecc71;
+@media (max-width: 480px) {
+  .login-content {
+    padding: 1.5rem 1.25rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .login-logo img {
+    margin-bottom: 0.5rem;
+  }
+
+  .logo-name {
+    margin: 0.25rem 0 1rem;
+  }
+
+  form input,
+  form button {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .toast {
+    max-width: 90%;
+    right: 5%;
+    left: 5%;
+    padding: 0.85rem;
+    font-size: 0.9rem;
+  }
 }
 
-.toast.error .toast-icon {
-  color: #e74c3c;
+/* Mobile landscape optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  .login-container {
+    padding: 0.5rem;
+  }
+  
+  .login-content {
+    padding: 1.25rem;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+  
+  .login-logo {
+    margin-bottom: 0.75rem;
+  }
+  
+  form {
+    gap: 0.75rem;
+  }
 }
-
-
