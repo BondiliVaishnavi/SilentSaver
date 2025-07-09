@@ -306,3 +306,13 @@
 .footer-content h3 {
   font-weight: 300;
 }
+.user{
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+ gap: 10px;
+
+}
+.header-actions i{
+  text-align: center;
+}

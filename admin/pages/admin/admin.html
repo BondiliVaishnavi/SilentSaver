@@ -27,10 +27,7 @@
 
             <div class="user">
               Logged in as: <strong id="logged-user">Loading..</strong>
-
-
             <div class="header-actions">
-               <div class="user">Logged in as: <strong id="logged-user">Loading..</strong></div>
                <button class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Logout
                </button>
@@ -168,7 +165,8 @@
   
   window.addEventListener("DOMContentLoaded", loadDashboardData);
 
-  // Replace placeholder with logged-in user's name from localStorage
+  
+  
 const userName = localStorage.getItem("userName");
 if (userName) {
   document.getElementById("logged-user").textContent = userName;
