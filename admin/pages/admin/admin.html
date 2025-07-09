@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Walmart | Staff</title>
-    <link rel="icon" href="../../../frontend/images/spark-icon.svg">
+    <title>Walmart | Live Dashboard</title>
+    <link rel="icon" href="../../../frontend/images/spark-icon.svg" />
     <link rel="stylesheet" href="admin.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@700;900&display=swap"
@@ -15,7 +15,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
   </head>
-
   <body>
     <header>
       <div class="header-container">
@@ -25,29 +24,17 @@
               <img src="../../../frontend/images/spark-icon.svg" alt="/" />
               <div class="logo">SilentSaver Admin</div>
             </div>
-
             <div class="user">
-              Logged in as: <strong>Walmart Manager</strong>
+              Logged in as: <strong id="logged-user">Loading..</strong>
             </div>
           </div>
-
-
-
-          
-
-          <div class="user">Logged in as: <strong id="logged-user">Loading..</strong></div>
-
         </div>
       </div>
     </header>
 
     <div class="ticker">
       <div class="ticker-content">
-        <p>
-          Narendar just saved ₹45 on Tropicana Juice! • Priya saved ₹22 on Amul
-          Milk! • Rahul claimed 3 clearance items — ₹63 saved! • Be a Waste
-          Warrior — scan, save, shine!
-        </p>
+        <p id="ticker-scroll">Loading...</p>
       </div>
     </div>
 
@@ -62,7 +49,7 @@
             <h1>WALMART INSTORE DISPLAY</h1>
 
             <div class="live-ticker">
-              <div class="headline">
+              <div id="headline" class="headline">
                 <div class="icon"><i class="fa-solid fa-trophy"></i></div>
                 <div class="name" id="warrior-name"></div>
                 <div class="message" id="savings-message"></div>
@@ -70,7 +57,7 @@
             </div>
             <div class="display-footer">
               <h3>Items Saved Today:</h3>
-              <div class="counter">184</div>
+              <div class="counter" id="live-counter">--</div>
             </div>
           </div>
 
@@ -79,26 +66,25 @@
               <div class="right-panel-content">
                 <div class="card1">
                   <h3>Clearance Items in Store</h3>
-                  <div class="stat">184</div>
+                  <div class="stat" id="clearance-count">--</div>
                   <div class="unit">items available</div>
                 </div>
 
                 <div class="card2">
                   <h3>Items Saved Today</h3>
-                  <div class="stat">67</div>
+                  <div class="stat" id="saved-today">--</div>
                   <div class="unit">items claimed</div>
                 </div>
-
                 <div class="card3">
                   <h3>Total Waste Reduction</h3>
-                  <div class="stat">₹12,480</div>
+                  <div class="stat" id="waste-reduction">--</div>
                   <div class="unit">saved so far</div>
                 </div>
 
                 <div class="card4">
-                  <h3>Conversion Rate</h3>
-                  <div class="stat">25</div>
-                  <div class="unit">this week</div>
+                  <h3>Average Saving Per Item</h3>
+                  <div class="stat" id="avg-saving">--</div>
+                  <div class="unit">value per saved item</div>
                 </div>
               </div>
             </div>
@@ -106,23 +92,71 @@
         </div>
       </div>
     </section>
-    <footer>
-      <div class="footer-content">
-        <h3>&copy; 2025 SilentSaver • Powered by Walmart Sparkathon</h3>
-      </div>
-    </footer>
-  </body>
-
 
   <script>
-  // Replace placeholder with logged-in user's name from localStorage
-  const userName = localStorage.getItem("userName");
-  if (userName) {
-    document.getElementById("logged-user").textContent = userName;
-  } else {
-    document.getElementById("logged-user").textContent = "Guest";
+
+  const loggedUserEl = document.getElementById("logged-user");
+  const clearanceCountEl = document.getElementById("clearance-count");
+  const savedTodayEl = document.getElementById("saved-today");
+  const wasteReductionEl = document.getElementById("waste-reduction");
+  const avgSavingEl = document.getElementById("avg-saving");
+  const warriorNameEl = document.getElementById("warrior-name");
+  const savingsMessageEl = document.getElementById("savings-message");
+  const tickerScrollEl = document.getElementById("ticker-scroll");
+  const headlineEl = document.getElementById("headline");
+  const liveCounterEl = document.getElementById("live-counter");
+
+  let recentEvents = [];
+  async function loadDashboardData() {
+    const loggedInUserName = localStorage.getItem("userName");
+    loggedUserEl.textContent = loggedInUserName ? loggedInUserName : "Admin";
+
+    try {
+      const res = await fetch("http://localhost:5000/api/sales/dashboard");
+      const data = await res.json();
+
+      if (data.success) {
+        updateKpiCards(data);
+        recentEvents = data.tickerData;
+        updateDisplays();
+      }
+    } catch (err) {
+      console.error("Failed to load dashboard:", err);
+    }
   }
+  function updateDisplays() {
+    const first = recentEvents[0];
+    if (first) {
+      warriorNameEl.textContent = `${first.name} is a Waste Warrior!`;
+      savingsMessageEl.textContent = `They just saved ₹${first.saved} on ${first.product}!`;
+      headlineEl.classList.add("animate");
+      setTimeout(() => {
+        headlineEl.classList.remove("animate");
+      }, 5500);
+    }
+    const scrollText = recentEvents
+      .map((e) => `${e.name} saved ₹${e.saved} on ${e.product}!`)
+      .join(" • ");
+    tickerScrollEl.textContent = scrollText + " • " + scrollText;
+  }
+  function updateKpiCards(data) {
+    clearanceCountEl.textContent = data.clearanceLeft;
+    savedTodayEl.textContent = data.itemsSaved;
+    liveCounterEl.textContent = data.itemsSaved;
+    wasteReductionEl.textContent = `₹${data.wasteReduced.toLocaleString('en-IN')}`;
+    avgSavingEl.textContent = `₹${data.avgSavingPerItem}`;
+  }
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'silentSaverNewSale') {
+      console.log("New sale detected from POS!");
+      
+     
+      loadDashboardData();
+    }
+  });
+
+  
+  window.addEventListener("DOMContentLoaded", loadDashboardData);
 </script>
-
-
+  </body>
 </html>

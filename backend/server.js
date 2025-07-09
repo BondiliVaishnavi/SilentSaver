@@ -6,13 +6,12 @@ const cors = require("cors");
 app.use(cors());
 
 const authRoutes = require("./Routes/AuthRoutes");
-const salesRoutes=require("./Routes/SalesRoutes");
+const salesRoutes = require("./Routes/SalesRoutes");
 
 app.use(express.json());
 
 app.use("/api", authRoutes);
-app.use("/api/sales",salesRoutes);
-
+app.use("/api/sales", salesRoutes);
 app.get("/", (req, res) => {
   res.send("Server is running..");
 });

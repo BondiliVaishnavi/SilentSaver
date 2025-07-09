@@ -98,9 +98,14 @@ form button {
   display: flex;
   justify-content: center;
   gap: 10px;
+  text-align: center;
 }
-.already-registered a span{
- color: #ffc220;
+.already-registered a {
+  text-decoration: none;
+}
+.already-registered a p{
+ color: #ffc220;text-decoration: none;
+
 }
 
 .toast {
