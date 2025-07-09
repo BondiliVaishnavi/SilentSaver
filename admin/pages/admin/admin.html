@@ -26,8 +26,11 @@
               <div class="logo">SilentSaver Admin</div>
             </div>
 
-            <div class="user">
-              Logged in as: <strong>Walmart Manager</strong>
+            <div class="header-actions">
+               <div class="user">Logged in as: <strong id="logged-user">Loading..</strong></div>
+               <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+               </button>
             </div>
           </div>
 
@@ -116,12 +119,17 @@
 
   <script>
   // Replace placeholder with logged-in user's name from localStorage
-  const userName = localStorage.getItem("userName");
-  if (userName) {
-    document.getElementById("logged-user").textContent = userName;
-  } else {
-    document.getElementById("logged-user").textContent = "Guest";
-  }
+const userName = localStorage.getItem("userName");
+if (userName) {
+  document.getElementById("logged-user").textContent = userName;
+} else {
+  document.getElementById("logged-user").textContent = "Guest";
+}
+
+document.getElementById("logoutBtn").addEventListener("click", function() {
+  localStorage.removeItem("userName");
+  window.location.href = "../Login/login.html"; 
+});
 </script>
 
 

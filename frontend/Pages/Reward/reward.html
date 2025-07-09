@@ -6,34 +6,65 @@
   <title>Scan Success • Deal Found</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-  --walmart-blue:#023eb5;
-  --walmart-yellow:#ffc220;
-  --light-bg:#f7f8fc;
-  --text-dark:#2c3e50;
-  --green:#27ae60;
+:root {
+  --walmart-blue: #023eb5;
+  --walmart-blue-dark: #012a7a;
+  --walmart-yellow: #ffc220;
+  --walmart-yellow-light: #ffd45c;
+  --light-bg: #f7f8fc;
+  --text-dark: #2c3e50;
+  --text-medium: #5a6b82;
+  --text-light: #8a9bb2;
+  --green: #27ae60;
+  --green-light: #2ecc71;
+  --red: #e74c3c;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes pop-in {
-  from { transform: scale(0.7); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  0% { transform: scale(0.7); opacity: 0; }
+  70% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
+
 @keyframes draw-tick {
   from { stroke-dashoffset: 200; }
   to { stroke-dashoffset: 0; }
 }
+
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes confetti-fall {
-  0% { transform: translateY(0%) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes border-glow {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: var(--light-bg);
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  background: var(--walmart-blue);
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -41,26 +72,45 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  color: white;
+  line-height: 1.6;
 }
 
 .results-view {
   position: relative;
   text-align: center;
   width: 100%;
-  padding: 40px 20px;
+  padding: 40px 20px 60px;
   box-sizing: border-box;
+  max-width: 800px;
 }
 
 .tick-mark-container {
   margin: 0 auto 20px;
   opacity: 0;
-  animation: pop-in 0.5s ease-out forwards;
+  animation: pop-in 0.5s ease-out forwards, pulse 2s 1s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.tick-mark-container::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: border-glow 2s 0.5s ease-in-out infinite;
 }
 
 .tick-mark-path {
   stroke-dasharray: 200;
   stroke-dashoffset: 200;
   animation: draw-tick 0.8s ease-out 0.3s forwards;
+  stroke: white;
 }
 
 .confetti-container {
@@ -76,9 +126,11 @@ body {
 
 .confetti {
   position: absolute;
-  width: 10px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   animation: confetti-fall 4s linear;
+  opacity: 0.85;
+  border-radius: 3px;
 }
 
 .deal-info-container {
@@ -88,133 +140,280 @@ body {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .deal-info-container h2 {
-  font-size: 2.5em;
-  color: var(--green);
-  margin: 20px 0;
+  font-size: 2.5rem;
+  color: white;
+  margin: 20px 0 10px;
   line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.deal-info-container h2::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, white, var(--walmart-yellow));
+  border-radius: 2px;
 }
 
 .location-alert {
-  background-color: var(--walmart-yellow);
-  color: var(--text-dark);
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--walmart-yellow) 0%, var(--walmart-yellow-light) 100%);
+  color: var(--walmart-blue-dark);
+  padding: 14px 25px;
+  border-radius: 12px;
+  font-weight: 700;
+  margin: 0 auto 25px;
   max-width: 90%;
   animation: fade-in-up 0.8s ease-out 1.2s forwards;
   opacity: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 10px;
   text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: var(--transition);
+}
+
+.location-alert:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .emoji {
-  font-size: 1.4em;
+  font-size: 1.5em;
   vertical-align: middle;
+  animation: bounce 1.5s ease-in-out infinite;
 }
 
 .deal-card {
   background: white;
-  padding: 30px;
+  padding: 35px 30px;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-lg);
   border-top: 8px solid var(--walmart-yellow);
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+
+.deal-card::before {
+  content: "CLEARANCE DEAL";
+  position: absolute;
+  top: 12px; 
+  right: -32px; 
+  background: var(--red);
+  color: white;
+  padding: 5px 42px; 
+  font-size: 0.78rem; 
+  font-weight: 700;
+  transform: rotate(45deg);
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-sm);
+  width: 180px;
+  text-align: center; 
+}
+
+.deal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg), 0 15px 30px rgba(0,0,0,0.1);
 }
 
 .deal-card h3 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 1.7rem;
+  margin: 0 0 15px;
+  color: var(--text-dark);
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .price {
-  font-size: 2.8em;
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--walmart-blue);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  margin: 15px 0;
+  position: relative;
+}
+
+.price::after {
+  content: "SAVINGS";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--green-light);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--text-dark);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
 }
 
 .price span {
-  font-size: 0.5em;
-  color: #aaa;
-  margin-left: 10px;
+  font-size: 1.4rem;
+  color: var(--text-light);
+  margin-left: 5px;
   text-decoration: line-through;
+  align-self: center;
+  position: relative;
+}
+
+.price span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--red);
+  transform: translateY(-50%);
 }
 
 .info-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 20px;
+  margin-top: 35px;
   gap: 15px;
 }
 
 .info-item {
   background: var(--light-bg);
-  padding: 12px;
-  border-radius: 8px;
+  padding: 15px 12px;
+  border-radius: 12px;
+  transition: var(--transition);
+  border: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-item:hover {
+  transform: translateY(-5px);
+  background: white;
+  box-shadow: var(--shadow-sm);
+  border-color: rgba(2, 62, 181, 0.1);
 }
 
 .info-item .value {
-  font-size: 1.5em;
+  font-size: 1.7rem;
   color: var(--walmart-blue);
-  font-weight: normal;
+  font-weight: 700;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 2;
 }
 
 .info-item .label {
-  font-size: 0.8em;
-  color: #777;
+  font-size: 0.85rem;
+  color: var(--text-medium);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
 }
 
+.info-item::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background: var(--walmart-yellow);
+  border-radius: 50%;
+  opacity: 0.2;
+}
 
 @media (max-width: 768px) {
+  .results-view {
+    padding: 30px 15px 50px;
+  }
+  
   .deal-info-container h2 {
-    font-size: 2em;
+    font-size: 2.1rem;
   }
 
   .price {
-    font-size: 2.2em;
+    font-size: 2.6rem;
   }
 
   .location-alert {
-    font-size: 0.95em;
-    padding: 10px 15px;
+    font-size: 1rem;
+    padding: 12px 20px;
   }
 
   .info-grid {
     grid-template-columns: 1fr;
+    max-width: 300px;
+    margin: 25px auto 0;
   }
 
   .tick-mark-container {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+  }
+  
+ 
+  .deal-card::before {
+    top: 10px;
+    right: -35px;
+    padding: 5px 38px;
+    font-size: 0.7rem;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .deal-info-container h2 {
-    font-size: 1.7em;
+    font-size: 1.8rem;
   }
 
   .price {
-    font-size: 1.9em;
+    font-size: 2.2rem;
   }
 
   .deal-card {
-    padding: 20px;
+    padding: 30px 20px;
+  }
+  
+  .deal-card h3 {
+    font-size: 1.5rem;
   }
 
   .location-alert {
-    font-size: 0.85em;
+    font-size: 0.95rem;
+    padding: 10px 15px;
+  }
+  
+ 
+  .deal-card::before {
+    top: 8px;
+    right: -38px;
+    padding: 5px 35px;
+    font-size: 0.65rem;
   }
 }
-
   </style>
 </head>
 <body>
@@ -223,24 +422,21 @@ body {
   <div class="confetti-container" id="confetti-container"></div>
 
   <svg class="tick-mark-container" width="140" height="140" viewBox="0 0 52 52">
-    <circle cx="26" cy="26" r="25" fill="none" stroke="#e7f1ff" stroke-width="4"/>
-    <path class="tick-mark-path" fill="none" stroke="var(--walmart-yellow)" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10"
+    <circle cx="26" cy="26" r="25" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="4"/>
+    <path class="tick-mark-path" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10"
           d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
   </svg>
 
- 
   <div class="deal-info-container" id="deal-info">
     <h2>Hurry! Grab This Deal!</h2>
     
-    
-   <div class="location-alert" id="location-alert">
-  <span class="emoji">🛒</span> <strong>Available at:</strong> <span id="location-text">Clearance Rack</span>
-</div>
-
+    <div class="location-alert" id="location-alert">
+      <span class="emoji">🛒</span> <strong>Available at:</strong> <span id="location-text">Clearance Rack</span>
+    </div>
     
     <div class="deal-card">
-      <h3 id="product-name">Product Name</h3>
-      <div class="price" id="product-price">₹228 <span id="product-original">₹250</span></div>
+      <h3 id="product-name">Premium Wireless Headphones</h3>
+      <div class="price" id="product-price">₹3,499 <span id="product-original">₹6,999</span></div>
       <div class="info-grid">
         <div class="info-item"><div class="value" id="stock">4</div><div class="label">Units Left</div></div>
         <div class="info-item"><div class="value" id="expire">2</div><div class="label">Days to Expire</div></div>
@@ -251,7 +447,6 @@ body {
 </div>
 
 <script>
-  
   const confettiContainer = document.getElementById('confetti-container');
   const colors = ['#023eb5','#ffc220', '#ffffff'];
   for (let i = 0; i < 150; i++) {
@@ -265,7 +460,6 @@ body {
     confettiContainer.appendChild(c);
   }
 
-  
   const params = new URLSearchParams(window.location.search);
   if (params.has('name')) document.getElementById('product-name').innerText = params.get('name');
   if (params.has('price')) document.getElementById('product-price').innerHTML = `₹${params.get('price')} <span>₹${params.get('original') || ''}</span>`;
@@ -273,11 +467,10 @@ body {
   if (params.has('expire')) document.getElementById('expire').innerText = params.get('expire');
   if (params.has('views')) document.getElementById('views').innerText = params.get('views');
   
- 
   if (params.has('location')) {
     document.getElementById('location-text').innerText = params.get('location');
   }
 </script>
 
 </body>
-</html>
+</html> 
