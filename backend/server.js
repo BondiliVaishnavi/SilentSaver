@@ -3,7 +3,10 @@ const app = express();
 require("dotenv").config();
 const connectDB = require("./Config/db");
 const cors = require("cors");
-app.use(cors());
+const corsOptions = {
+  origin: 'https://bondilivaishnavi.github.io'
+};
+app.use(cors(corsOptions));
 
 const authRoutes = require("./Routes/AuthRoutes");
 const salesRoutes = require("./Routes/SalesRoutes");
