@@ -6,8 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* header css */
-/* Container for entire header */
+
 .header-container {
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -17,14 +16,14 @@
   z-index: 1000;
 }
 
-/* Flexbox for header content layout */
+
 .head-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Logo + app name */
+
 .head1 {
   display: flex;
   align-items: center;
@@ -47,7 +46,7 @@
 
 .head2 {
   display: flex;
-  gap: 30px;
+  gap: 35px;
 }
 
 .head2 > div {
@@ -55,8 +54,11 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
-}
 
+}
+.head2 .Scansave{
+  display: flex;
+}
 .head2 i {
   margin-right: 6px;
   color: #ffc220;
@@ -210,6 +212,7 @@
 .part2 ul li {
   margin-top: 5px;
   font-size: 14px;
+  color: #4e4e4e;
 }
 
 /* footer css */
@@ -304,146 +307,235 @@
 .earth{
   color: green;
 }
-@media (max-width: 1024px) {
-  .block1 h1 {
-    font-size: 4rem;
-    margin-left: 20px;
-  }
-
-  .block1 h2 {
-    margin-left: 20px;
-    font-size: 1.6rem;
-  }
-
-  .block1 h4 {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.1rem;
-  }
-
-  .head2 {
-    gap: 20px;
-  }
-
-  .win-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+/* --- Responsive Header CSS --- */
 
 @media (max-width: 768px) {
+  /* Keep the header content in a single row */
   .head-content {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* Add some gap for spacing */
   }
 
-  .head1 {
-    justify-content: center;
-    width: 100%;
-  }
-
+  /* Ensure the logo and nav links sections don't wrap unnecessarily */
+  .head1,
   .head2 {
-  flex-direction: column;
-  width: 100%;
-  align-items: center; /* ✅ fixed alignment */
-  gap: 10px;
-  text-align: center;
-}
-
-
-  .block1 {
-    height: auto;
-    padding-bottom: 40px;
+    flex-shrink: 0; /* Prevent items from shrinking too much */
   }
 
-  .block1 h1 {
-    font-size: 3rem;
-    margin: 30px 10px 0;
-  }
-
-  .block1 h2 {
-    font-size: 1.5rem;
-    margin-left: 10px;
-  }
-
-  .block1 h4 {
-    font-size: 1rem;
-    width: 90%;
-    margin: 10px auto;
-  }
-
-  .scanNow button {
-    width: 120px;
-  }
-
-  .part1 img {
-    height: auto;
-    width: 100%;
-  }
-
-  .part2 {
-    padding: 20px;
-  }
-
-  .part2 h1 {
-    font-size: 1.8rem;
-  }
-
-  .part2 h3 {
-    font-size: 1rem;
-  }
-
-  .win-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .fblock1 h1 {
-    font-size: 2rem;
-  }
-
-  .fblock1-part1 {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-@media (max-width: 480px) {
+  /* Reduce the size of the logo image */
   .header-logo img {
     width: 30px;
     height: 30px;
   }
 
+  /* Reduce the font size of the main title */
   .logo-name h1 {
     font-size: 1.2rem;
   }
 
+  /* Keep the navigation links in a row and reduce spacing */
+  .head2 {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  /* Reduce font size for navigation links */
+  .head2 h3 {
+    font-size: 0.85rem;
+  }
+
+  /* Reduce padding for the entire header on smaller screens */
+  .header-container {
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further reduce font size for the smallest screens */
+  .logo-name h1 {
+    font-size: 1rem;
+  }
+  
+  .head2 {
+    gap: 10px; /* Even smaller gap */
+  }
+
+  .head2 h3 {
+    font-size: 0.75rem; /* Even smaller font */
+  }
+
+  
+}
+
+
+/* --- Responsive Blue Area CSS --- */
+
+/* Base style for the blue block */
+.block1 {
+  width: 100%;
+  background-color: #023eb5;
+  /* Use min-height and viewport height for responsive height */
+  min-height: 450px;
+  height: 80vh; 
+  /* Use Flexbox to center content perfectly */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Add padding for smaller screens */
+  text-align: center;
+}
+
+/* Remove fixed margins that prevent centering */
+.block1 h1,
+.block1 h2 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.block1 h1 {
+  color: #ffffff;
+  font-size: 5.6rem;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 5px #002f6c;
+  margin-top: 0; /* Adjust margin for flex layout */
+  margin-bottom: 10px;
+}
+
+.block1 h2 {
+  color: #ffffff;
+  font-weight: 540;
+  font-family: sans-serif;
+  font-size: 1.9rem;
+  padding-bottom: 20px;
+}
+
+.powered-by {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Vertically align items */
+  gap: 10px; /* Use gap for spacing */
+  margin-bottom: 20px;
+}
+
+.powered-by img {
+  width: 30px;
+  height: 30px;
+  /* Remove margins as gap is used now */
+  margin: 0;
+}
+
+.powered-by h3 {
+  color: #ffffff;
+  font-weight: 200;
+  font-size: 0.9rem;
+}
+
+.scanNow {
+  padding-top: 15px;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .block1 {
+    min-height: 400px;
+    height: 90vh; 
+  }
+
   .block1 h1 {
-    font-size: 2.4rem;
+    font-size: 3.8rem; 
   }
 
   .block1 h2 {
-    font-size: 1.2rem;
+    font-size: 0.9rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .block1 {
+    min-height: 350px;
+    height: 90vh; 
   }
 
-  .block1 h4 {
-    font-size: 0.95rem;
+  .block1 h1 {
+    font-size: 3.0rem; 
   }
 
-  .part2 h1 {
-    font-size: 1.5rem;
+  .block1 h2 {
+    font-size: 1rem; 
+    width: 97%; 
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  
+  .block2 {
+    flex-direction: column;
+    align-items: center; 
+    gap: 30px; 
   }
 
-  .part2 h3 {
-    font-size: 0.95rem;
+  
+  .part2 {
+    text-align: center;
+    max-width: 90%; 
+  }
+
+  
+  .part2 ul {
+    text-align: left;
+    display: inline-block; 
+    margin-top: 20px;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .win-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .block3 h1 {
+    font-size: 2.2rem;
+  }
+
+
+  .fblock1 h1 {
+    font-size: 2rem;
+  }
+
+ 
+  .fblock1-part1 {
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px;         
+  }
+}
+
+@media (max-width: 480px) {
+
+  .block3 h1 {
+    font-size: 1.8rem;
+  }
+
+  .win-card {
+    padding: 20px;
+    text-align: left;
+  }
+
+  .i-and-h {
+    justify-content: flex-start;
   }
 
   .fblock1 h1 {
     font-size: 1.5rem;
   }
-
-  .win-card {
-    padding: 20px;
-  }
 }
-

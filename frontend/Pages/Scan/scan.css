@@ -284,7 +284,6 @@ input::placeholder {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ========== RESPONSIVE MEDIA QUERIES ========== */
 @media (max-width: 600px) {
   .container {
     padding: 25px 20px;
@@ -336,7 +335,7 @@ input::placeholder {
   }
   
   .container {
-    padding: 20px 15px;
+    padding: 15px 15px;
     border-radius: 12px;
     margin: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
