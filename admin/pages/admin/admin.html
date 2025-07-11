@@ -119,7 +119,7 @@
     loggedUserEl.textContent = loggedInUserName ? loggedInUserName : "Admin";
 
     try {
-      const res = await fetch("http://localhost:5000/api/sales/dashboard");
+      const res = await fetch("https://silentsaver-sparkathon-2025.onrender.com/api/sales/dashboard");
       const data = await res.json();
 
       if (data.success) {
