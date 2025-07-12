@@ -287,3 +287,32 @@ form button {
     gap: 0.75rem;
   }
 }
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px; /* space for the icon */
+}
+
+.password-wrapper i {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.password-wrapper i:hover {
+  color: #555;
+}
+
+/* Optional: Hide default browser password eye */
+input::-ms-reveal,
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-clear-button {
+  display: none !important;
+}

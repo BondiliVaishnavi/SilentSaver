@@ -42,15 +42,19 @@
               id="email"
               required
             />
-
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
+            <div class="password-wrapper">
+                 <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+               />
+               <i class="fa-solid fa-eye" id="togglePassword"></i>
+            </div>
+
+            
 
             <button type="submit" class="submit-btn">Signup</button>
 
@@ -146,6 +150,16 @@
       showToast("error", "Network Error: " + error.message);
     }
   });
+  const togglePassword = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("password");
+
+togglePassword.addEventListener("click", () => {
+  const isPassword = passwordInput.type === "password";
+  passwordInput.type = isPassword ? "text" : "password";
+  togglePassword.classList.toggle("fa-eye");
+  togglePassword.classList.toggle("fa-eye-slash");
+});
+
 </script>
 
 
