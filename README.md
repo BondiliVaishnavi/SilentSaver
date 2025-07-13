@@ -27,22 +27,18 @@ This happens all the time:
 
 ---
 
-## ✨ Our Solution
+## Our Solution
+That’s why we built SilentSaver — not just another discount tool, but an in-store intelligence platform that turns scanning into saving… and saving into a public celebration.
 
-That’s why we built **SilentSaver** — not just another discount tool, but an **in-store intelligence platform** that turns **scanning into saving… and saving into a public celebration**.
+No app, no login — just smart QR codes placed across the store.
 
-- **No app, no login** — just **smart QR codes** placed across the store
-- Shoppers scan a code and instantly check any product:
-  - Is it on clearance?
-  - How soon does it expire?
-  - How many are left?
-  - How many others viewed it?
+Shoppers scan a code, enter a barcode, and instantly see if that product is available in the special "SilentSaver Clearance Zone." They see when it expires and how many are left.
 
-> “🏃 Hurry! Run to clearance before it’s gone!”
+>“🏃 Hurry! Run to the Clearance Zone in Aisle 9 before it’s gone!”
 
-At checkout, the shopper enters a **one-time code**. The cashier confirms the purchase — and a **celebration** is triggered on a big in-store display:
+At checkout, the cashier scans the special clearance item. This single scan automatically applies the discount AND triggers a celebration on a big in-store display:
 
-> 📰 “Narendar just saved food from going to waste. Welcome our newest Waste Warrior!”
+>📰 “A smart shopper just saved food from going to waste. Welcome a new Waste Warrior!”
 
 ---
 
