@@ -103,7 +103,7 @@ MONGO_URI=your_mongodb_connection_string
 4. **Run the Backend**
 
 ```bash
-node index.js
+node server.js
 ```
 
 > You should see:
