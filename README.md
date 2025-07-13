@@ -149,7 +149,7 @@ To simulate the full real-time experience:
 
 ## 🙌 Acknowledgments
 
-Made with ❤️ during \[Hackathon Name or Program]
+Made with ❤️ during \[WALMART SPARTHON 2025]
 Inspired by a vision to connect **technology**, **sustainability**, and **real shopper joy**.
 
 ---
