@@ -81,8 +81,8 @@ Make sure you have the following installed:
 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/your-username/silentsaver.git
-cd silentsaver
+git clone https://github.com/BondiliVaishnavi/SilentSaver.git
+cd SilentSaver
 ````
 
 2. **Set Up the Backend**
@@ -120,7 +120,7 @@ To simulate the full real-time experience:
 
 * Open `scan.html` in your browser
 * Click the **"Scan Product"** button
-* A **Redemption Code** (e.g., `SAVE-1234`) will appear
+* A **Redemption Code** (e.g., `MILK-123`) will appear
 
 #### 2. 💻 Cashier Terminal
 
@@ -149,7 +149,7 @@ To simulate the full real-time experience:
 
 ## 🙌 Acknowledgments
 
-Made with ❤️ during \[WALMART SPARTHON 2025]
+Made with ❤️ during \[WALMART SPARKATHON 2025]
 Inspired by a vision to connect **technology**, **sustainability**, and **real shopper joy**.
 
 ---
