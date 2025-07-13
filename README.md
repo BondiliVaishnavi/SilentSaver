@@ -48,16 +48,13 @@ At checkout, the cashier scans the special clearance item. This single scan auto
 - 📺 **Live “Waste Warrior” Display** – Celebrate real customers in real-time on big screens.
 - 📦 **Urgency-Driven “Deal Card”** – Shows stock, expiry, and shopper interest.
 - 🛡️ **Secure Admin Dashboard** – Track data with custom tools like the Impact Calendar.
-- 📊 **Data-Backed Business Case** – 6-month simulation proves ROI.
 - ♻️ **Triple-Win Framework** – Built to help the **Customer**, **Walmart**, and the **Planet**.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: HTML5, CSS3, JavaScript  
-- **Data Visualization**: Chart.js  
-- **Real-Time Simulation**: Browser `localStorage`  
+- **Frontend**: HTML5, CSS3, JavaScript    
 - **Backend**: Node.js, Express.js  
 - **Database**: MongoDB  
 
